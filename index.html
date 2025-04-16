@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- UPDATE: Changed title to reflect the new form's purpose -->
+    <title>فرم دریافت اهداف واحد فروش از وب سایت شرکت</title>
+    <!-- Vazir Font -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --company-color: #004026; /* Keep existing color */
+            --light-accent: #eaf0eb; /* Keep existing color */
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Vazir', Tahoma, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+             scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--light-accent) 0%, #ffffff 60%, #d0dbd3 100%);
+            background-attachment: fixed;
+            margin: 0;
+            padding: 80px 20px 40px 20px; /* Keep padding for sticky progress bar */
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before { /* Background Pattern */
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23004026' fill-opacity='0.05' d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z'%3E%3C/path%3E%3C/svg%3E");
+            z-index: -1; opacity: 0.7;
+        }
+
+        /* Sticky Progress Bar Container */
+        .progress-outer-container {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            box-shadow: 0 2px 5px rgba(0, 64, 38, 0.1); padding: 10px 20px;
+        }
+        .progress-container { max-width: 850px; margin: 0 auto; }
+        .progress-bar {
+            width: 100%; height: 10px; background-color: rgba(0, 64, 38, 0.1);
+            border-radius: 5px; overflow: hidden; position: relative; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .progress-fill {
+            height: 100%; background: linear-gradient(90deg, var(--company-color), #007a4f);
+            width: 0%; border-radius: 5px; transition: width 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 0 8px rgba(0, 122, 79, 0.3);
+        }
+        .progress-steps { display: flex; justify-content: space-between; margin-top: 8px; padding: 0; }
+        .step { position: relative; text-align: center; width: 16.666%; cursor: default; }
+        .step-dot {
+            width: 20px; height: 20px; background-color: #ddd; border: 2px solid #fff;
+            border-radius: 50%; margin: 0 auto 5px; position: relative; z-index: 2;
+            transition: all 0.4s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .step.active .step-dot {
+            background-color: var(--company-color); border-color: var(--company-color);
+            transform: scale(1.1); box-shadow: 0 0 0 3px rgba(0, 64, 38, 0.1), 0 2px 4px rgba(0,0,0,0.15);
+        }
+        .step-label { font-size: 0.8em; color: #666; transition: all 0.4s ease; }
+        .step.active .step-label { color: var(--company-color); font-weight: bold; }
+        /* End Progress Bar */
+
+
+        .container { /* Main form content container */
+            max-width: 850px; margin: 0 auto; background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 40px 45px; border-radius: 18px; box-shadow: 0 10px 40px rgba(0, 64, 38, 0.2);
+            text-align: center; position: relative; overflow: hidden;
+        }
+
+        /* Decorative corner shapes */
+        .container::before { content: ""; position: absolute; top: -60px; right: -60px; width: 120px; height: 120px; background-color: var(--company-color); opacity: 0.08; border-radius: 50%; z-index: 0; }
+        .container::after { content: ""; position: absolute; bottom: -40px; left: -40px; width: 100px; height: 100px; background-color: var(--company-color); opacity: 0.08; border-radius: 20px; transform: rotate(30deg); z-index: 0; }
+
+        #companyLogo { display: block; margin: 0 auto 35px auto; max-width: 180px; height: auto; border-radius: 8px; position: relative; z-index: 1; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1)); transition: transform 0.3s ease; }
+        #companyLogo:hover { transform: scale(1.05); }
+
+        h1 { color: var(--company-color); border-bottom: none; padding-bottom: 15px; margin-bottom: 20px; font-size: 2.1em; text-align: center; position: relative; z-index: 1; }
+        h1::after { content: ""; display: block; width: 120px; height: 4px; background: linear-gradient(to right, transparent, var(--company-color), transparent); margin: 18px auto 0; border-radius: 2px; }
+
+        h2 { color: var(--company-color); padding-bottom: 10px; margin-top: 0; margin-bottom: 30px; font-size: 1.6em; text-align: right; position: relative; z-index: 1; border-bottom: 1px solid rgba(0, 64, 38, 0.2); }
+
+        .section-divider { height: 2px; background: linear-gradient(to right, rgba(255,255,255,0), rgba(0, 64, 38, 0.4), rgba(255,255,255,0)); margin: 50px auto 40px auto; border-radius: 1px; width: 80%; opacity: 0.8; position: relative; z-index: 1; }
+
+        p { text-align: right; margin-bottom: 20px; color: #444; position: relative; z-index: 1; }
+        .container > p:first-of-type { font-size: 1.1em; color: #333; margin-bottom: 35px; text-align: center; padding: 12px 20px; background-color: rgba(0, 64, 38, 0.04); border-radius: 8px; border-right: 4px solid var(--company-color); border-left: 4px solid var(--company-color); }
+
+        .form-group { margin-bottom: 28px; text-align: right; position: relative; z-index: 1; }
+        label { display: block; margin-bottom: 10px; font-weight: bold; color: #333; text-align: right; position: relative; }
+        label.required::after { font-family: "Font Awesome 6 Free"; content: "\f06a"; font-weight: 900; margin-right: 8px; font-size: 0.85em; color: var(--company-color); opacity: 0.8; vertical-align: middle; }
+
+        /* --- Input Field Styling (Rounded Rectangle) --- */
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"], /* Added date type */
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 15px; /* Standard padding */
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+            border: 1px solid #ccc; /* Default light gray border */
+            border-radius: 8px; /* Rounded corners */
+            color: #333;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Subtle inset shadow */
+            /* Remove specific border-right from previous step */
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        input[type="date"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--company-color); /* Green border on focus */
+            background-color: white; /* Opaque background on focus */
+            box-shadow: 0 0 0 3px rgba(0, 64, 38, 0.15), 0 1px 3px rgba(0,0,0,0.05); /* Green glow + inset shadow */
+            /* Remove specific border-right styles from previous step */
+        }
+
+        textarea {
+            min-height: 100px; /* Slightly reduced default height */
+            resize: vertical;
+        }
+        /* --- End Input Field Styling --- */
+
+        /* Checkbox and Radio Styling */
+        .options-group { text-align: right; padding-top: 5px; }
+        .options-group label {
+            display: block; /* Changed to block for better layout */
+            margin-bottom: 12px; /* Spacing between options */
+            font-weight: normal;
+            cursor: pointer;
+            color: #555;
+            position: relative;
+            padding-right: 30px; /* Increased padding */
+            transition: all 0.2s ease;
+            line-height: 22px; /* Adjusted line height */
+        }
+        .options-group label:hover { color: var(--company-color); }
+
+        .options-group input[type="radio"],
+        .options-group input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        /* Custom Radio Button Appearance */
+        .options-group input[type="radio"] + label::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #bbb;
+            border-radius: 50%;
+            background-color: #fff;
+            transition: all 0.3s ease;
+        }
+        .options-group input[type="radio"]:checked + label::before {
+            border-color: var(--company-color);
+            background-color: var(--light-accent);
+        }
+        .options-group input[type="radio"] + label::after { /* Dot inside radio */
+            content: '';
+            position: absolute;
+            right: 6px; /* Position inside the border */
+            top: 50%;
+            transform: translateY(-50%) scale(0);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--company-color);
+            transition: all 0.3s ease;
+        }
+        .options-group input[type="radio"]:checked + label::after {
+            transform: translateY(-50%) scale(1);
+        }
+
+        /* Custom Checkbox Appearance */
+        .options-group input[type="checkbox"] + label::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #bbb;
+            border-radius: 4px; /* Square shape */
+            background-color: #fff;
+            transition: all 0.3s ease;
+        }
+        .options-group input[type="checkbox"]:checked + label::before {
+            border-color: var(--company-color);
+            background-color: var(--company-color); /* Fill on check */
+        }
+        .options-group input[type="checkbox"] + label::after { /* Checkmark inside checkbox */
+            font-family: "Font Awesome 6 Free";
+            content: "\f00c"; /* Check icon */
+            font-weight: 900;
+            position: absolute;
+            right: 3px;
+            top: 50%;
+            transform: translateY(-50%) scale(0);
+            color: white; /* Checkmark color */
+            font-size: 14px;
+            transition: transform 0.2s ease;
+            line-height: 1;
+        }
+        .options-group input[type="checkbox"]:checked + label::after {
+            transform: translateY(-50%) scale(1);
+        }
+
+        /* Style for 'Other' text input when associated checkbox/radio is checked */
+        .other-input-container {
+            margin-top: 8px;
+            margin-right: 30px; /* Align with checkbox/radio text */
+            display: none; /* Hidden by default */
+        }
+        .options-group input[type="checkbox"]:checked ~ .other-input-container,
+        .options-group input[type="radio"]:checked ~ .other-input-container {
+            display: block; /* Show when checked */
+        }
+        .other-input-container input[type="text"] {
+            width: calc(100% - 30px); /* Adjust width */
+            font-size: 15px;
+            padding: 8px 10px;
+        }
+
+
+        /* Submit Button Styling */
+        .btn-submit { background-color: var(--company-color); color: white; border: none; padding: 16px 30px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 10px; width: 100%; margin-top: 25px; transition: all 0.3s ease; position: relative; overflow: hidden; z-index: 1; box-shadow: 0 4px 10px rgba(0, 64, 38, 0.2); }
+        .btn-submit::before { content: ""; position: absolute; top: 0; left: -150%; width: 80%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent); transform: skewX(-25deg); transition: left 0.7s ease; }
+        .btn-submit:hover { background-color: #005a36; transform: translateY(-3px); box-shadow: 0 7px 18px rgba(0, 64, 38, 0.3); }
+        .btn-submit:hover::before { left: 120%; }
+        .btn-submit:active { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(0, 64, 38, 0.2); }
+
+
+        /* Success Message Styling */
+        .success-message { padding: 18px 25px; background-color: rgba(223, 240, 216, 0.9); border: 1px solid #b7e3ae; color: #2a5b2f; border-radius: 10px; margin-top: 35px; display: none; text-align: center; position: relative; z-index: 1; animation: fadeInUp 0.6s ease-out; font-weight: bold; }
+        .success-message i { margin-left: 10px; font-size: 1.1em; vertical-align: middle; }
+
+
+        /* Scroll-to-top Indicator */
+        .scroll-indicator { position: fixed; bottom: 25px; right: 25px; width: 45px; height: 45px; border-radius: 50%; background-color: var(--company-color); color: white; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 18px rgba(0, 64, 38, 0.3); opacity: 0; visibility: hidden; transition: all 0.4s ease; z-index: 1000; }
+        .scroll-indicator.visible { opacity: 0.9; visibility: visible; }
+        .scroll-indicator:hover { opacity: 1; transform: scale(1.1); }
+        .scroll-indicator i { animation: bounce 2s infinite ease-in-out; }
+
+        /* Animations */
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            body { padding-top: 90px; padding-left: 10px; padding-right: 10px; }
+            .progress-outer-container { padding: 8px 15px; }
+            .step-label { display: none; }
+            .step-dot { width: 18px; height: 18px; border-width: 2px;}
+            .container { padding: 25px 20px; border-radius: 12px; }
+            h1 { font-size: 1.8em; } h1::after { width: 80px; height: 3px;}
+            h2 { font-size: 1.4em; }
+            input[type="text"], input[type="email"], input[type="tel"], input[type="date"], textarea, select { padding: 10px 12px; border-radius: 6px; } /* Adjust padding/radius */
+            .options-group label { margin-left: 0; padding-right: 26px; } /* Adjust checkbox/radio */
+            .options-group label::before { width: 18px; height: 18px; }
+            .options-group input[type="radio"] + label::after { width: 9px; height: 9px; right: 4.5px; }
+            .options-group input[type="checkbox"] + label::after { font-size: 12px; right: 2px; }
+             .other-input-container { margin-right: 26px; }
+             .other-input-container input[type="text"] { width: calc(100% - 26px); }
+
+            .btn-submit { padding: 14px 20px; font-size: 17px; }
+            .scroll-indicator { bottom: 15px; right: 15px; width: 40px; height: 40px; }
+        }
+
+        /* REMOVED Table Styling as it's not used in the new structure */
+
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Progress Bar -->
+    <div class="progress-outer-container">
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-steps" id="progressSteps">
+                <!-- UPDATE: Changed step labels -->
+                <div class="step active" data-section="section1"><div class="step-dot"></div><div class="step-label">اطلاعات کلی</div></div>
+                <div class="step" data-section="section2"><div class="step-dot"></div><div class="step-label">اهداف اصلی</div></div>
+                <div class="step" data-section="section3"><div class="step-dot"></div><div class="step-label">مخاطبان</div></div>
+                <div class="step" data-section="section4"><div class="step-dot"></div><div class="step-label">بخش‌ها و UX</div></div>
+                <div class="step" data-section="section5"><div class="step-dot"></div><div class="step-label">بازاریابی و رقبا</div></div>
+                <div class="step" data-section="section6"><div class="step-dot"></div><div class="step-label">یکپارچگی و نهایی</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll Top Button -->
+    <div class="scroll-indicator" id="scrollTopBtn">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <!-- Main Form Container -->
+    <div class="container">
+        <img id="companyLogo" src="logo_mark.jpg" alt="لوگوی شرکت"> <!-- Assuming you want to keep this logo -->
+
+        <!-- UPDATE: Changed title -->
+        <h1>فرم دریافت اهداف واحد فروش از وب سایت شرکت</h1>
+        <!-- UPDATE: Changed purpose description -->
+        <p><strong>هدف:</strong> گردآوری اطلاعات و نیازمندی‌های واحد فروش برای بازطراحی یا بهبود وب‌سایت شرکت جهت دستیابی به اهداف فروش.</p>
+
+        <!-- Form Starts Here -->
+        <!-- UPDATE: Changed Formspree endpoint in the script below -->
+        <form id="salesForm">
+
+            <!-- Section 1: General Company Info -->
+            <!-- UPDATE: Changed section title and content -->
+            <h2 id="section1">۱. اطلاعات کلی شرکت</h2>
+            <div class="form-group">
+                <label for="company_name" class="required">نام شرکت:</label>
+                <!-- Set default value based on prompt -->
+                <input type="text" id="company_name" name="company_name" value="هستی آرین تامین" required>
+            </div>
+            <div class="form-group">
+                <label for="activity_field" class="required">حوزه فعالیت:</label>
+                 <!-- Set default value based on prompt -->
+                <input type="text" id="activity_field" name="activity_field" value="واحد فروش" required>
+            </div>
+            <div class="form-group">
+                <label for="sales_subsections">زیر بخش‌های واحد فروش:</label>
+                <textarea id="sales_subsections" name="sales_subsections" placeholder="مثال: فروش داخلی، فروش خارجی، فروش آنلاین..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="main_products_services">محصولات/خدمات اصلی:</label>
+                <textarea id="main_products_services" name="main_products_services" placeholder="لطفاً محصولات یا خدمات کلیدی که سایت باید روی آن‌ها تمرکز کند را لیست کنید..."></textarea>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <!-- Section 2: Sales Unit Goals -->
+            <!-- UPDATE: Changed section title and content -->
+            <h2 id="section2">۲. اهداف واحد فروش</h2>
+            <div class="form-group">
+                <label>هدف اصلی از بازطراحی سایت چیست؟ (می‌توانید چند گزینه انتخاب کنید)</label>
+                <div class="options-group">
+                    <input type="checkbox" id="goal_awareness" name="redesign_goal[]" value="افزایش آگاهی از محصولات">
+                    <label for="goal_awareness">افزایش آگاهی از محصولات</label>
+
+                    <input type="checkbox" id="goal_users" name="redesign_goal[]" value="افزایش تعداد کاربر">
+                    <label for="goal_users">افزایش تعداد کاربر</label>
+
+                    <input type="checkbox" id="goal_credibility" name="redesign_goal[]" value="افزایش اعتبار شرکت و تسهیل فروش">
+                    <label for="goal_credibility">افزایش اعتبار شرکت و تسهیل فروش</label>
+
+                    <input type="checkbox" id="goal_leadgen" name="redesign_goal[]" value="جذب مشتریان جدید (لید جنریشن)">
+                    <label for="goal_leadgen">جذب مشتریان جدید (لید جنریشن)</label>
+
+                    <input type="checkbox" id="goal_ux" name="redesign_goal[]" value="بهبود تجربه کاربری (UX) برای مشتریان موجود">
+                    <label for="goal_ux">بهبود تجربه کاربری (UX) برای مشتریان موجود</label>
+
+                    <input type="checkbox" id="goal_product_intro" name="redesign_goal[]" value="معرفی بهتر محصولات/خدمات">
+                    <label for="goal_product_intro">معرفی بهتر محصولات/خدمات</label>
+
+                    <input type="checkbox" id="goal_other" name="redesign_goal_other_checkbox" value="سایر">
+                    <label for="goal_other">سایر</label>
+                    <div class="other-input-container">
+                         <input type="text" id="redesign_goal_other_text" name="redesign_goal_other_text" placeholder="لطفاً توضیح دهید">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <!-- Section 3: Target Audience -->
+            <!-- UPDATE: Changed section title and content -->
+            <h2 id="section3">۳. مخاطبان هدف</h2>
+            <div class="form-group">
+                <label for="customer_groups">گروه‌های اصلی مشتریان شما چه کسانی هستند؟</label>
+                <textarea id="customer_groups" name="customer_groups" placeholder="مثال: شرکت‌های پخش، فروشگاه‌های زنجیره‌ای، مصرف‌کنندگان نهایی، صنایع خاص... لطفا هر گروه را در خط جداگانه بنویسید."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="customer_needs">از دیدگاه شما، نیازها و انتظارات اصلی هر گروه از مخاطبان از سایت چیست؟</label>
+                <textarea id="customer_needs" name="customer_needs" placeholder="مثال: گروه پخش‌کننده‌ها به اطلاعات فنی دقیق و لیست قیمت نیاز دارند، مصرف‌کننده نهایی به راهنمای استفاده و نظرات دیگران..."></textarea>
+            </div>
+
+            <div class="section-divider"></div>
+
+             <!-- Section 4: Essential Sections & UX -->
+            <!-- UPDATE: Changed section title and combined Q4 & Q5 -->
+            <h2 id="section4">۴. بخش‌های ضروری سایت و تجربه کاربری (UX)</h2>
+            <div class="form-group">
+                <label>کدام بخش‌ها باید در سایت جدید وجود داشته باشد؟ (گزینه‌های مورد نظر را علامت بزنید)</label>
+                <div class="options-group">
+                    <input type="checkbox" id="section_products" name="essential_sections[]" value="محصولات/خدمات با جزئیات کامل">
+                    <label for="section_products">محصولات/خدمات با جزئیات کامل</label>
+
+                    <input type="checkbox" id="section_cart" name="essential_sections[]" value="صفحه سبد خرید و پرداخت آنلاین">
+                    <label for="section_cart">صفحه سبد خرید و پرداخت آنلاین</label>
+
+                    <input type="checkbox" id="section_contact_form" name="essential_sections[]" value="فرم درخواست مشاوره/تماس آنلاین">
+                    <label for="section_contact_form">فرم درخواست مشاوره/تماس آنلاین</label>
+
+                    <input type="checkbox" id="section_blog" name="essential_sections[]" value="وبلاگ آموزشی/خبری">
+                    <label for="section_blog">وبلاگ آموزشی/خبری</label>
+
+                    <input type="checkbox" id="section_reviews" name="essential_sections[]" value="نظرات و امتیازدهی مشتریان">
+                    <label for="section_reviews">نظرات و امتیازدهی مشتریان</label>
+
+                    <input type="checkbox" id="section_chat" name="essential_sections[]" value="چت آنلاین (پشتیبانی)">
+                    <label for="section_chat">چت آنلاین (پشتیبانی)</label>
+
+                    <input type="checkbox" id="section_other" name="essential_sections_other_checkbox" value="سایر">
+                    <label for="section_other">سایر:</label>
+                    <div class="other-input-container">
+                         <input type="text" id="essential_sections_other_text" name="essential_sections_other_text" placeholder="لطفاً بخش مورد نظر را بنویسید">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="current_site_issues">سایت فعلی از دیدگاه شما چه مشکلاتی دارد؟</label>
+                <textarea id="current_site_issues" name="current_site_issues" placeholder="مثلاً کندی، طراحی قدیمی، عدم سازگاری با موبایل، پیدا نکردن اطلاعات..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="conversion_success">آیا سایت فعلی در تبدیل بازدیدکننده به مشتری (Conversion Rate) موفق عمل می‌کند؟ توضیح دهید.</label>
+                <textarea id="conversion_success" name="conversion_success" placeholder="آیا مشتریان به راحتی خرید می‌کنند یا فرم پر می‌کنند؟ نقاط قوت و ضعف چیست؟"></textarea>
+            </div>
+             <div class="form-group">
+                <label for="crm_needed">آیا نیاز به سیستم پیشرفته مدیریت مشتریان (CRM) در سایت دارید؟ (برای پیگیری بهتر لیدها)</label>
+                <textarea id="crm_needed" name="crm_needed" placeholder="اگر بله، چه انتظاراتی از آن دارید؟ آیا با CRM فعلی باید یکپارچه شود؟"></textarea>
+            </div>
+             <div class="form-group">
+                <label for="followup_needed">آیا پیگیری خودکار مشتریان (Follow-up) پس از ثبت درخواست ضروری است؟ (مثلاً ارسال ایمیل خودکار)</label>
+                <textarea id="followup_needed" name="followup_needed" placeholder="اگر بله، چه نوع پیگیری‌هایی مد نظر است؟"></textarea>
+            </div>
+             <div class="form-group">
+                <label for="sales_barriers">مهم‌ترین مانع فروش در سایت فعلی چیست؟</label>
+                <textarea id="sales_barriers" name="sales_barriers" placeholder="مثلاً عدم نمایش قیمت، پیچیدگی فرآیند خرید، نبود اطلاعات کافی، عدم اعتماد..."></textarea>
+            </div>
+             <div class="form-group">
+                <label for="dropoff_points">مشتریان معمولاً در کدام مرحله از فرآیند خرید یا تعامل، سایت را ترک می‌کنند؟</label>
+                <textarea id="dropoff_points" name="dropoff_points" placeholder="مثلاً هنگام دیدن قیمت، در صفحه پرداخت، قبل از پر کردن فرم..."></textarea>
+            </div>
+             <div class="form-group">
+                <label for="comparison_needed">آیا نیاز به مقایسه محصولات در سایت وجود دارد؟</label>
+                <textarea id="comparison_needed" name="comparison_needed" placeholder="اگر بله، چه ویژگی‌هایی باید قابل مقایسه باشند؟"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="design_suggestions">پیشنهاد شما برای طراحی جدید چیست؟</label>
+                <textarea id="design_suggestions" name="design_suggestions" placeholder="مثلاً مدرن، مینیمال، پررنگ، رسمی، دوستانه... سایت‌های مورد علاقه؟"></textarea>
+            </div>
+
+
+            <div class="section-divider"></div>
+
+             <!-- Section 5: SEO, Marketing & Competitors -->
+            <!-- UPDATE: Changed section title and combined Q6 & Q7 -->
+            <h2 id="section5">۵. سئو، بازاریابی دیجیتال و تحلیل رقبا</h2>
+             <div class="form-group">
+                <label>آیا نیاز به بهینه‌سازی برای موتورهای جستجو (SEO) دارید؟</label>
+                <div class="options-group">
+                    <input type="radio" id="seo_yes" name="seo_needed" value="بله">
+                    <label for="seo_yes">بله</label>
+                    <input type="radio" id="seo_no" name="seo_needed" value="خیر">
+                    <label for="seo_no">خیر</label>
+                </div>
+            </div>
+             <div class="form-group">
+                <label>آیا قصد دارید از تبلیغات آنلاین (مثل گوگل ادز) استفاده کنید؟</label>
+                 <div class="options-group">
+                    <input type="radio" id="ads_yes" name="ads_needed" value="بله">
+                    <label for="ads_yes">بله</label>
+                    <input type="radio" id="ads_no" name="ads_needed" value="خیر">
+                    <label for="ads_no">خیر</label>
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="competitor_features">کدام ویژگی‌های سایت رقبا برای واحد فروش شما جذاب است؟ لطفاً لینک سایت رقیب را نیز ارسال بفرمایید.</label>
+                <textarea id="competitor_features" name="competitor_features" placeholder="مثلاً چت زنده، نمایش موجودی انبار، ماشین حساب قیمت، دانلود کاتالوگ پیشرفته... \nلینک رقیب: http://..."></textarea>
+            </div>
+             <div class="form-group">
+                <label for="dynamic_pricing_needed">آیا قیمت‌گذاری پویا (مثلاً تغییر قیمت بر اساس حجم خرید یا نوع مشتری) در سایت نیاز است؟</label>
+                 <textarea id="dynamic_pricing_needed" name="dynamic_pricing_needed" placeholder="اگر بله، لطفاً توضیح دهید چگونه باید کار کند."></textarea>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <!-- Section 6: Integration & Final Expectations -->
+            <!-- UPDATE: Changed section title and combined Q8, Q9 & Closing -->
+            <h2 id="section6">۶. یکپارچه‌سازی و انتظارات نهایی</h2>
+             <div class="form-group">
+                <label for="system_integration_needed">آیا سایت باید با نرم‌افزار انبارداری/حسابداری فعلی شرکت یکپارچه شود؟</label>
+                 <textarea id="system_integration_needed" name="system_integration_needed" placeholder="اگر بله، نام نرم‌افزار و نوع اطلاعاتی که باید رد و بدل شود را ذکر کنید. (مثلاً بروزرسانی موجودی، ثبت سفارش)"></textarea>
+            </div>
+             <div class="form-group">
+                <label for="realtime_reporting_needed">آیا گزارش‌گیری لحظه‌ای از عملکرد فروش سایت (تعداد بازدید، لیدها، فروش) نیاز است؟</label>
+                 <textarea id="realtime_reporting_needed" name="realtime_reporting_needed" placeholder="چه نوع گزارش‌هایی برای شما حیاتی است؟"></textarea>
+            </div>
+             <div class="form-group">
+                <label for="educational_content_needed">آیا محتواهای آموزشی (مثلاً ویدیو معرفی محصول، مقالات کاربردی) برای تسهیل فروش نیاز است؟</label>
+                 <textarea id="educational_content_needed" name="educational_content_needed" placeholder="چه نوع محتواهایی بیشتر به فروش کمک می‌کند؟"></textarea>
+            </div>
+             <div class="form-group">
+                <label for="sales_cycle_reduction_feature">چه ویژگی‌ای در سایت جدید به شما کمک می‌کند زمان چرخه فروش (Sales Cycle) را کاهش دهد؟</label>
+                <textarea id="sales_cycle_reduction_feature" name="sales_cycle_reduction_feature" placeholder="مثلاً امکان درخواست دموی آنلاین، ارائه سریع پیش‌فاکتور، پاسخگویی سریع‌تر..."></textarea>
+            </div>
+
+             <div class="form-group">
+                 <label for="completion_date">تاریخ تکمیل فرم:</label>
+                 <input type="text" id="completion_date" name="completion_date" placeholder="مثال: ۱۴۰۳/۰۵/۱۵">
+                 <!-- Or use date input: <input type="date" id="completion_date" name="completion_date"> -->
+             </div>
+             <div class="form-group">
+                 <label for="completer_name" class="required">نام و نام خانوادگی تکمیل کننده:</label>
+                 <input type="text" id="completer_name" name="completer_name" required>
+                 <!-- Signature is usually done manually, not via form -->
+             </div>
+
+            <button type="submit" class="btn-submit">ارسال فرم</button>
+        </form>
+        <!-- End Form -->
+
+        <!-- Success Message -->
+        <div id="successMessage" class="success-message">
+            <i class="fas fa-check-circle"></i>
+            اطلاعات شما با موفقیت ثبت شد. با تشکر از همکاری شما.
+        </div>
+    </div><!-- End Container -->
+
+    <!-- JavaScript (keeping previous logic, UPDATED Formspree URL and form ID) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            // Scroll-to-Top Button Logic (Keep existing)
+            if (scrollTopBtn) {
+                window.addEventListener('scroll', () => {
+                    scrollTopBtn.classList.toggle('visible', window.scrollY > 300);
+                });
+                scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+
+            const progressFill = document.getElementById('progressFill');
+            const steps = document.querySelectorAll('#progressSteps .step');
+            const sections = document.querySelectorAll('h2[id^="section"]');
+            const numSections = sections.length;
+            let currentActiveSection = 0;
+            // Progress Bar Logic (Keep existing)
+            if (progressFill && steps.length > 0 && sections.length > 0) {
+                 const observerCallback = (entries) => {
+                    let visibleSections = [];
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            visibleSections.push({
+                                id: entry.target.id,
+                                ratio: entry.intersectionRatio,
+                                topPos: entry.boundingClientRect.top
+                            });
+                        }
+                    });
+
+                    if (visibleSections.length > 0) {
+                        visibleSections.sort((a, b) => a.topPos - b.topPos);
+                        const mostVisibleSectionId = visibleSections[0].id;
+                        // Ensure the ID matches the pattern before parsing
+                         if (mostVisibleSectionId && mostVisibleSectionId.startsWith('section')) {
+                            currentActiveSection = parseInt(mostVisibleSectionId.replace('section', ''), 10);
+                         }
+                    }
+
+                     // Ensure currentActiveSection is a valid number >= 1
+                     if (isNaN(currentActiveSection) || currentActiveSection < 1) {
+                         currentActiveSection = 1; // Default to 1 if invalid
+                     }
+
+                    const progressPercent = ((currentActiveSection -1) / (numSections - 1)) * 100;
+                    progressFill.style.width = `${Math.min(100, Math.max(0, progressPercent))}%`;
+
+                    steps.forEach((step, index) => {
+                         step.classList.toggle('active', (index + 1) === currentActiveSection);
+                    });
+                };
+
+                 const observerOptions = {
+                    root: null,
+                    rootMargin: '0px 0px -40% 0px',
+                    threshold: 0.01
+                };
+
+                const observer = new IntersectionObserver(observerCallback, observerOptions);
+                sections.forEach(section => observer.observe(section));
+
+                 setTimeout(() => {
+                    let initialSection = 0;
+                     sections.forEach((section, index) => {
+                         const rect = section.getBoundingClientRect();
+                         if (rect.top >= 0 && rect.top < window.innerHeight * 0.6) {
+                              if (initialSection === 0) initialSection = index + 1;
+                         }
+                     });
+                     currentActiveSection = initialSection || 1;
+                     const initialProgressPercent = ((currentActiveSection-1) / (numSections-1)) * 100;
+                     progressFill.style.width = `${Math.min(100, Math.max(0, initialProgressPercent))}%`;
+                     steps.forEach((step, index) => step.classList.toggle('active', (index + 1) === currentActiveSection));
+                }, 150);
+
+            } else {
+                 console.warn("Progress bar elements not found or incomplete.");
+            }
+
+            // UPDATE: Changed form ID to 'salesForm'
+            const theForm = document.getElementById('salesForm');
+            // Form Submission Logic (Formspree)
+            if (theForm) {
+                theForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const formData = new FormData(this);
+
+                    // Handle 'Other' text fields based on checkbox state
+                    const otherGoalCheckbox = document.getElementById('goal_other');
+                    if (otherGoalCheckbox && !otherGoalCheckbox.checked) {
+                        formData.delete('redesign_goal_other_text'); // Remove text if checkbox is not checked
+                    } else if (otherGoalCheckbox && otherGoalCheckbox.checked) {
+                         // Optionally combine 'Other' checkbox value and text
+                         const otherText = formData.get('redesign_goal_other_text');
+                         formData.append('redesign_goal[]', `سایر: ${otherText || '(توضیح داده نشده)'}`);
+                         formData.delete('redesign_goal_other_checkbox'); // Remove the simple 'سایر' value
+                         formData.delete('redesign_goal_other_text'); // Remove the separate text field
+                    }
+
+                    const otherSectionCheckbox = document.getElementById('section_other');
+                     if (otherSectionCheckbox && !otherSectionCheckbox.checked) {
+                        formData.delete('essential_sections_other_text');
+                     } else if (otherSectionCheckbox && otherSectionCheckbox.checked) {
+                         const otherText = formData.get('essential_sections_other_text');
+                         formData.append('essential_sections[]', `سایر: ${otherText || '(توضیح داده نشده)'}`);
+                         formData.delete('essential_sections_other_checkbox');
+                         formData.delete('essential_sections_other_text');
+                     }
+
+
+                    // Convert FormData to plain object for JSON stringify
+                    // Handle multi-select checkboxes correctly (grouping them)
+                    const formObject = {};
+                    formData.forEach((value, key) => {
+                        if (key.endsWith('[]')) { // Handle array fields (checkboxes)
+                            const cleanKey = key.slice(0, -2);
+                            if (!formObject[cleanKey]) {
+                                formObject[cleanKey] = [];
+                            }
+                            formObject[cleanKey].push(value);
+                        } else {
+                           // Check for duplicate keys (like radio buttons) - keep the last one (usually the selected one)
+                           // Or handle based on specific logic if needed
+                           formObject[key] = value;
+                        }
+                    });
+
+                    // Convert arrays to comma-separated strings for simpler email display if needed
+                     for (const key in formObject) {
+                        if (Array.isArray(formObject[key])) {
+                            formObject[key] = formObject[key].join(', ');
+                        }
+                     }
+
+
+                    const jsonData = JSON.stringify(formObject);
+                    // UPDATE: Changed Formspree URL
+                    const formspreeURL = 'https://formspree.io/f/xvgknoev';
+                    const submitButton = this.querySelector('.btn-submit');
+                    const successMessage = document.getElementById('successMessage');
+                    const originalButtonText = submitButton.textContent;
+
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'در حال ارسال...';
+                    successMessage.style.display = 'none';
+
+                    fetch(formspreeURL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                        body: jsonData
+                    })
+                    .then(response => {
+                        // Formspree redirects on success (status 3xx) or returns 200
+                        if (response.ok || (response.status >= 300 && response.status < 400) ) {
+                            return Promise.resolve(response);
+                         }
+                        else {
+                            // Try to parse error json from Formspree
+                            return response.json().then(data => {
+                                const errorMessage = data.errors ? data.errors.map(e => e.message).join(', ') : 'Form submission failed';
+                                throw new Error(errorMessage);
+                             })
+                            .catch(err => { // Catch if response.json() fails or re-throw the parsed error
+                                 throw new Error(err.message || 'Form submission failed with status: ' + response.status);
+                             });
+                        }
+                    })
+                    .then(() => {
+                        console.log('Success with Formspree!');
+                        successMessage.style.display = 'block';
+                        theForm.reset(); // Reset the form fields
+                        // Reset 'Other' text field visibility
+                        document.querySelectorAll('.other-input-container').forEach(el => el.style.display = 'none');
+                        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+
+                        // Reset progress bar visually
+                        currentActiveSection = 1; // Reset to first section
+                        progressFill.style.width = '0%';
+                        steps.forEach((step, index) => step.classList.toggle('active', index === 0));
+
+                        // Hide success message after a delay
+                        setTimeout(() => {
+                            successMessage.style.transition = 'opacity 0.5s ease';
+                            successMessage.style.opacity = '0';
+                            setTimeout(() => {
+                                successMessage.style.display = 'none';
+                                successMessage.style.opacity = '1'; // Reset opacity for next time
+                                successMessage.style.transition = ''; // Remove transition style
+                            }, 500); // Wait for fade out
+                        }, 7000); // Display duration
+                    })
+                    .catch(error => {
+                        console.error('Error!', error.message);
+                        alert('مشکلی در ارسال فرم رخ داده است. لطفا دوباره تلاش کنید.\nخطا: ' + error.message);
+                    })
+                    .finally(() => {
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalButtonText;
+                    });
+                });
+
+                // Add event listeners to 'Other' checkboxes/radios to show/hide text input
+                 document.querySelectorAll('.options-group input[type="checkbox"][value="سایر"], .options-group input[type="radio"][value="سایر"]').forEach(cb => {
+                    cb.addEventListener('change', function() {
+                        const container = this.parentNode.querySelector('.other-input-container');
+                        if (container) {
+                             container.style.display = this.checked ? 'block' : 'none';
+                             if (!this.checked) {
+                                 const input = container.querySelector('input[type="text"]');
+                                 if (input) input.value = ''; // Clear text if unchecked
+                             }
+                        }
+                    });
+                 });
+
+
+            } else {
+                console.error("Form element #salesForm not found.");
+            }
+
+        });
+    </script>
+
+</body>
+</html>
